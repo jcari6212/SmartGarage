@@ -54,7 +54,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   String? email;
   String? username = '';
   String? friendEmail = '';
-  Duration? remainingTime;
+
   String? pickedPacketNo;
   String? hoursNum;
   bool checkoutForm=false;
@@ -256,14 +256,5 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     setState(() {});
   }
 
-  Future<void> getRemainingTime() async {
-    QuerySnapshot querySnapshot = await garage.where('id', isEqualTo: 1).get();
 
-    String? firebaseTime = await querySnapshot.docs.first["time"];
-    DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
-    DateTime currentTime = DateTime.now();
-    remainingTime = endTime.difference(currentTime);
-
-    setState(() {});
-  }
 }
