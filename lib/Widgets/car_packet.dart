@@ -6,18 +6,19 @@ import '../constants.dart';
 
 
 class CarPacket extends StatefulWidget {
-  CarPacket({super.key, required this.packetNum, required this.onTap,required this.remainingTime});
+  CarPacket({super.key, required this.packetNum, required this.onTap,required this.used});
 
   dynamic packetNum;
   VoidCallback onTap;
-  Duration? remainingTime;
+  bool used = false;
+
 
   @override
   State<CarPacket> createState() => _CarPacketState();
 }
 
 class _CarPacketState extends State<CarPacket> {
-  bool used = false;
+
 
 
 
@@ -29,22 +30,22 @@ class _CarPacketState extends State<CarPacket> {
     return Padding(
       padding: const EdgeInsets.only(top: 58,left:  32),
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: widget.used? (){} :widget.onTap,
         child: Container(
           height: 150,
           width: 150,
           decoration: BoxDecoration(
-              color: used? Colors.red : kPrimaryColor,
+              color: widget.used? Colors.red : kPrimaryColor,
               borderRadius: BorderRadius.circular(16)
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(used? Icons.lock_clock : widget.packetNum,size: 40,color: Colors.white,),
+              Icon(widget.used? Icons.lock_clock : widget.packetNum,size: 40,color: Colors.white,),
               Visibility(
-                visible: used,
+                visible: widget.used,
                 child: SlideCountdown(
-                  duration: widget.remainingTime,
+                  duration: Duration(hours: 1),
                 ),
               ),
             ],
