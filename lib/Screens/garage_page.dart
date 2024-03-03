@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'package:untitled/Models/message_model.dart';
+import 'package:untitled/Widgets/custom_button.dart';
 import 'package:untitled/constants.dart';
 import 'dart:async';
 import '../Widgets/car_packet.dart';
@@ -14,10 +17,10 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
+  CollectionReference garage = FirebaseFirestore.instance.collection('garage');
   CollectionReference online = FirebaseFirestore.instance.collection('online');
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  CollectionReference messages2 =
-      FirebaseFirestore.instance.collection('messages');
+
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -52,11 +55,9 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   String? email;
   String? username = '';
   String? friendEmail = '';
-  bool isOnline = false;
-  bool isVisibleFirstColumn = false;
-  bool isVisibleSecondColumn = false;
-  bool isVisibleThirdColumn = true;
-  List<String> chattedEmails = [];
+  Duration? remainingTime;
+
+
 
   String? textMessage;
   final textController = TextEditingController();
@@ -65,6 +66,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    getRemainingTime();
   }
 
   @override
@@ -77,7 +79,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     email = ModalRoute.of(context)!.settings.arguments as String;
     setUsername();
-    setChattedEmails();
+
 
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('messages').where('id',
@@ -116,11 +118,20 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                       CarPacket(packetNum: Icons.looks_4_rounded),
                     ],
                   ),
-                  Row(
-                    children: [
-                      CarPacket(packetNum: Icons.looks_5_rounded),
-                      CarPacket(packetNum: Icons.looks_6_rounded),
-                    ],
+                  //Row(
+                    //children: [
+                      //CarPacket(packetNum: Icons.looks_5_rounded),
+                      //CarPacket(packetNum: Icons.looks_6_rounded),
+                    //],
+                  //),
+                  CustomButton(text: 'Press', onTap: (){
+                    garage.add({
+                      'time': DateTime.now().add(const Duration(hours: 2)),
+                      'id': 1,
+                    });
+                  }),
+                  SlideCountdown(
+                    duration: remainingTime,
                   ),
                 ],
               ),
@@ -132,46 +143,24 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         });
   }
 
-  void setChattedEmails() async{
-    await messages2.where('id', isGreaterThanOrEqualTo: '$email')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        if(!chattedEmails.contains(doc["receiver"])){
-          chattedEmails.add(doc["receiver"]);
-        }
-
-      });
-    });
-  }
-
-  void checkIfFriendOnline() {
-    var period = const Duration(seconds: 1);
-    Timer.periodic(period, (arg) async {
-      QuerySnapshot querySnapshot =
-          await online.where('id', isEqualTo: friendEmail).get();
-      if (querySnapshot.docs.isNotEmpty) {
-        setState(() {
-          isOnline = true;
-        });
-      } else {
-        setState(() {
-          isOnline = false;
-        });
-      }
-    });
-
-    setState(() {
-      isVisibleFirstColumn = false;
-      isVisibleSecondColumn = true;
-    });
-  }
-
   Future<void> setUsername() async {
     QuerySnapshot querySnapshot =
         await users.where('email', isEqualTo: email).get();
 
     username = await querySnapshot.docs.first["username"];
+    setState(() {});
+  }
+
+  Future<void> getRemainingTime() async {
+    QuerySnapshot querySnapshot =
+    await garage.where('id', isEqualTo: 1).get();
+
+    String? firebaseTime = await querySnapshot.docs.first["time"];
+    DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+    DateTime currentTime = DateTime.now();
+    remainingTime = endTime.difference(currentTime);
+
+
     setState(() {});
   }
 }
