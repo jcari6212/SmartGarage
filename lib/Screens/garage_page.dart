@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:slide_countdown/slide_countdown.dart';
 import 'package:untitled/Models/message_model.dart';
-import 'package:untitled/Widgets/custom_button.dart';
 import 'package:untitled/constants.dart';
 import 'dart:async';
 import '../Widgets/car_packet.dart';
@@ -66,7 +64,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    getRemainingTime();
+
   }
 
   @override
@@ -79,7 +77,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     email = ModalRoute.of(context)!.settings.arguments as String;
     setUsername();
-
+    getRemainingTime();
 
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('messages').where('id',
@@ -108,14 +106,34 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                 children: [
                   Row(
                     children: [
-                      CarPacket(packetNum: Icons.looks_one_rounded),
-                      CarPacket(packetNum: Icons.looks_two_rounded),
+                      CarPacket(packetNum: Icons.looks_one_rounded, onTap: () {
+                        garage.add({
+                          'time': DateTime.now().add(const Duration(hours: 2)).toString(),
+                          'id': 1,
+                        });
+                      }, remainingTime: remainingTime,),
+                      CarPacket(packetNum: Icons.looks_two_rounded, onTap: () {
+                        garage.add({
+                          'time': DateTime.now().add(const Duration(hours: 2)).toString(),
+                          'id': 2,
+                        });
+                      }, remainingTime: remainingTime,),
                     ],
                   ),
                   Row(
                     children: [
-                      CarPacket(packetNum: Icons.looks_3_rounded),
-                      CarPacket(packetNum: Icons.looks_4_rounded),
+                      CarPacket(packetNum: Icons.looks_3_rounded, onTap: () {
+                        garage.add({
+                          'time': DateTime.now().add(const Duration(hours: 2)).toString(),
+                          'id': 3,
+                        });
+                      }, remainingTime: remainingTime,),
+                      CarPacket(packetNum: Icons.looks_4_rounded, onTap: () {
+                        garage.add({
+                          'time': DateTime.now().add(const Duration(hours: 2)).toString(),
+                          'id': 4,
+                        });
+                      }, remainingTime: remainingTime,),
                     ],
                   ),
                   //Row(
@@ -124,15 +142,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                       //CarPacket(packetNum: Icons.looks_6_rounded),
                     //],
                   //),
-                  CustomButton(text: 'Press', onTap: (){
-                    garage.add({
-                      'time': DateTime.now().add(const Duration(hours: 2)),
-                      'id': 1,
-                    });
-                  }),
-                  SlideCountdown(
-                    duration: remainingTime,
-                  ),
                 ],
               ),
             );
