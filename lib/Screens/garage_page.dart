@@ -32,7 +32,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
     if (inactive) {
       QuerySnapshot querySnapshot =
-          await online.where('id', isEqualTo: email).get();
+      await online.where('id', isEqualTo: email).get();
       if (querySnapshot.docs.isNotEmpty) {
         await querySnapshot.docs.first.reference.delete();
       }
@@ -42,7 +42,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       });
     } else {
       QuerySnapshot querySnapshot =
-          await online.where('id', isEqualTo: email).get();
+      await online.where('id', isEqualTo: email).get();
       if (querySnapshot.docs.isNotEmpty) {
         await querySnapshot.docs.first.reference.delete();
       }
@@ -57,13 +57,19 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   String? pickedPacketNo;
   String? hoursNum;
-  bool checkoutForm=false;
-  bool isRented1=false;
-  bool isRented2=false;
-  bool isRented3=false;
-  bool isRented4=false;
-  bool isRented5=false;
-  bool isRented6=false;
+  bool checkoutForm = false;
+  bool isRented1 = false;
+  bool isRented2 = false;
+  bool isRented3 = false;
+  bool isRented4 = false;
+  bool isRented5 = false;
+  bool isRented6 = false;
+  Duration? remainingTime1;
+  Duration? remainingTime2;
+  Duration? remainingTime3;
+  Duration? remainingTime4;
+  Duration? remainingTime5;
+  Duration? remainingTime6;
 
   @override
   initState() {
@@ -79,9 +85,11 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    email = ModalRoute.of(context)!.settings.arguments as String;
+    email = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as String;
     setUsername();
-    //getRemainingTime();
 
     return Scaffold(
       appBar: AppBar(
@@ -103,18 +111,22 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                     onTap: () {
                       pickedPacketNo = '1';
                       setState(() {
-                        checkoutForm=true;
+                        checkoutForm = true;
                       });
                     }, used: isRented1,
+                    remainingTime: isRented1 ? remainingTime1 : Duration(
+                        seconds: 1),
                   ),
                   CarPacket(
                     packetNum: Icons.looks_two_rounded,
                     onTap: () {
                       pickedPacketNo = '2';
                       setState(() {
-                        checkoutForm=true;
+                        checkoutForm = true;
                       });
                     }, used: isRented2,
+                    remainingTime: isRented2 ? remainingTime2 : Duration(
+                        seconds: 1),
                   ),
                 ],
               ),
@@ -125,18 +137,23 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                     onTap: () {
                       pickedPacketNo = '3';
                       setState(() {
-                        checkoutForm=true;
+                        checkoutForm = true;
                       });
                     }, used: isRented3,
+                    remainingTime: isRented3? remainingTime3 : Duration(hours: 1),
                   ),
                   CarPacket(
                     packetNum: Icons.looks_4_rounded,
                     onTap: () {
                       pickedPacketNo = '4';
                       setState(() {
-                        checkoutForm=true;
+                        checkoutForm = true;
                       });
-                    }, used: isRented4,),
+                    }, used: isRented4,
+                    remainingTime: isRented4 ? remainingTime4 : Duration(
+                        seconds: 1),
+                  ),
+
                 ],
               ),
               Row(
@@ -146,18 +163,22 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                     onTap: () {
                       pickedPacketNo = '5';
                       setState(() {
-                        checkoutForm=true;
+                        checkoutForm = true;
                       });
                     }, used: isRented5,
+                    remainingTime: isRented5 ? remainingTime5 : Duration(
+                        seconds: 1),
                   ),
                   CarPacket(
                     packetNum: Icons.looks_6_rounded,
                     onTap: () {
                       pickedPacketNo = '6';
                       setState(() {
-                        checkoutForm=true;
+                        checkoutForm = true;
                       });
                     }, used: isRented6,
+                    remainingTime: isRented6 ? remainingTime6 : Duration(
+                        seconds: 1),
                   ),
                 ],
               ),
@@ -166,9 +187,9 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
           Visibility(
               visible: checkoutForm,
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   setState(() {
-                    checkoutForm=false;
+                    checkoutForm = false;
                   });
                 },
                 child: Container(
@@ -188,54 +209,60 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       children: [
-                        Text('Packet No.$pickedPacketNo',style: TextStyle(fontSize: 17),),
+                        Text('Packet No.$pickedPacketNo',
+                          style: TextStyle(fontSize: 17),),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 26),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 26),
                           child: TextField(
-                            onChanged: (data){
+                            onChanged: (data) {
                               hoursNum = data;
                             },
                             decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: kPrimaryColor),
+                                borderSide: const BorderSide(
+                                    color: kPrimaryColor),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: kPrimaryColor),
+                                borderSide: const BorderSide(
+                                    color: kPrimaryColor),
                                 borderRadius: BorderRadius.circular(12),
                               ),
 
                             ),
                           ),
                         ),
-                        CustomButton2(text: 'Proceed', onTap: (){
-                          if(hoursNum!=null){
-                            garage.add({
-                              'time': DateTime.now().add(Duration(hours: int.parse(hoursNum!))).toString(),
-                              'id': pickedPacketNo,
-                            });
-                            if(pickedPacketNo=='1'){
-                              isRented1=true;
+                        CustomButton2(text: 'Proceed', onTap: () {
+                          if (hoursNum != null) {
+                            // garage.add({
+                            //   'time': DateTime.now()
+                            //       .add(Duration(hours: int.parse(hoursNum!)))
+                            //       .toString(),
+                            //   'id': pickedPacketNo,
+                            // });
+                            if (pickedPacketNo == '1') {
+                              getRemainingTime1();
                             }
-                            if(pickedPacketNo=='2'){
-                              isRented2=true;
+                            if (pickedPacketNo == '2') {
+                              getRemainingTime2();
                             }
-                            if(pickedPacketNo=='3'){
-                              isRented3=true;
+                            if (pickedPacketNo == '3') {
+                              getRemainingTime3();
                             }
-                            if(pickedPacketNo=='4'){
-                              isRented4=true;
+                            if (pickedPacketNo == '4') {
+                              getRemainingTime4();
                             }
-                            if(pickedPacketNo=='5'){
-                              isRented5=true;
+                            if (pickedPacketNo == '5') {
+                              getRemainingTime5();
                             }
-                            if(pickedPacketNo=='6'){
-                              isRented6=true;
+                            if (pickedPacketNo == '6') {
+                              getRemainingTime6();
                             }
-                            checkoutForm=false;
-                            hoursNum=null;
+                            checkoutForm = false;
+                            hoursNum = null;
                           }
                         })
                       ],
@@ -250,11 +277,79 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
   Future<void> setUsername() async {
     QuerySnapshot querySnapshot =
-        await users.where('email', isEqualTo: email).get();
+    await users.where('email', isEqualTo: email).get();
 
     username = await querySnapshot.docs.first["username"];
     setState(() {});
   }
 
+
+  Future<void> getRemainingTime1() async {
+    QuerySnapshot querySnapshot1 = await garage.where('id', isEqualTo: 1).get();
+
+      String? firebaseTime = await querySnapshot1.docs.first["time"];
+      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+      DateTime currentTime = DateTime.now();
+      remainingTime1 = endTime.difference(currentTime);
+      setState(() {
+        isRented1 = true;
+      });
+
+  }
+
+  Future<void> getRemainingTime2() async {
+    QuerySnapshot querySnapshot2 = await garage.where('id', isEqualTo: 2).get();
+    if (querySnapshot2.docs.isNotEmpty) {
+      String? firebaseTime = await querySnapshot2.docs.first["time"];
+      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+      DateTime currentTime = DateTime.now();
+      remainingTime2 = await endTime.difference(currentTime);
+      isRented2 = true;
+    }
+  }
+
+  Future<void> getRemainingTime3() async {
+    QuerySnapshot querySnapshot3 = await garage.where('id', isEqualTo: 3).get();
+    if (querySnapshot3.docs.isNotEmpty) {
+      String? firebaseTime = await querySnapshot3.docs.first["time"];
+      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+      DateTime currentTime = DateTime.now();
+      remainingTime3 = await endTime.difference(currentTime);
+      isRented3 = true;
+    }
+  }
+
+  Future<void> getRemainingTime4() async {
+    QuerySnapshot querySnapshot4 = await garage.where('id', isEqualTo: 4).get();
+    if (querySnapshot4.docs.isNotEmpty) {
+      String? firebaseTime = await querySnapshot4.docs.first["time"];
+      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+      DateTime currentTime = DateTime.now();
+      remainingTime4 = await endTime.difference(currentTime);
+      isRented4 = true;
+    }
+  }
+
+  Future<void> getRemainingTime5() async {
+    QuerySnapshot querySnapshot5 = await garage.where('id', isEqualTo: 5).get();
+    if (querySnapshot5.docs.isNotEmpty) {
+      String? firebaseTime = await querySnapshot5.docs.first["time"];
+      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+      DateTime currentTime = DateTime.now();
+      remainingTime5 = await endTime.difference(currentTime);
+      isRented5 = true;
+    }
+  }
+
+  Future<void> getRemainingTime6() async {
+    QuerySnapshot querySnapshot6 = await garage.where('id', isEqualTo: 6).get();
+    if (querySnapshot6.docs.isNotEmpty) {
+      String? firebaseTime = await querySnapshot6.docs.first["time"];
+      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+      DateTime currentTime = DateTime.now();
+      remainingTime6 = await endTime.difference(currentTime);
+      isRented6 = true;
+    }
+  }
 
 }
