@@ -113,177 +113,184 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
         ),
         backgroundColor: kPrimaryColor,
       ),
-      body: Stack(
+      body: ListView(
         children: [
-          Column(
-            children: [
-              Row(
-                children: [
-                  CarPacket(
-                    packetNum: Icons.looks_one_rounded,
-                    onTap: () {
-                      pickedPacketNo = '1';
-                      setState(() {
-                        checkoutForm = true;
-                      });
-                    }, used: isRented1,
-                    remainingTime: isRented1 ? remainingTime1 : Duration(seconds: 1),
-                  ),
-                  CarPacket(
-                    packetNum: Icons.looks_two_rounded,
-                    onTap: () {
-                      pickedPacketNo = '2';
-                      setState(() {
-                        checkoutForm = true;
-                      });
-                    }, used: isRented2,
-                    remainingTime: isRented2 ? remainingTime2 : Duration(
-                        seconds: 1),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CarPacket(
-                    packetNum: Icons.looks_3_rounded,
-                    onTap: () {
-                      pickedPacketNo = '3';
-                      setState(() {
-                        checkoutForm = true;
-                      });
-                    }, used: isRented3,
-                    remainingTime: isRented3? remainingTime3 : Duration(hours: 1),
-                  ),
-                  CarPacket(
-                    packetNum: Icons.looks_4_rounded,
-                    onTap: () {
-                      pickedPacketNo = '4';
-                      setState(() {
-                        checkoutForm = true;
-                      });
-                    }, used: isRented4,
-                    remainingTime: isRented4 ? remainingTime4 : Duration(
-                        seconds: 1),
-                  ),
-
-                ],
-              ),
-              Row(
-                children: [
-                  CarPacket(
-                    packetNum: Icons.looks_5_rounded,
-                    onTap: () {
-                      pickedPacketNo = '5';
-                      setState(() {
-                        checkoutForm = true;
-                      });
-                    }, used: isRented5,
-                    remainingTime: isRented5 ? remainingTime5 : Duration(
-                        seconds: 1),
-                  ),
-                  CarPacket(
-                    packetNum: Icons.looks_6_rounded,
-                    onTap: () {
-                      pickedPacketNo = '6';
-                      setState(() {
-                        checkoutForm = true;
-                      });
-                    }, used: isRented6,
-                    remainingTime: isRented6 ? remainingTime6 : Duration(
-                        seconds: 1),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Visibility(
-              visible: checkoutForm,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    checkoutForm = false;
-                  });
-                },
-                child: Container(
-                  color: Colors.black54,
-
-                ),
-              )),
-          Visibility(
-            visible: checkoutForm,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 280, horizontal: 60),
-              child: Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Column(
+          Container(
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Row(
                       children: [
-                        Text('Packet No.$pickedPacketNo',
-                          style: TextStyle(fontSize: 17),),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 26),
-                          child: TextField(
-                            onChanged: (data) {
-                              hoursNum = data;
-                            },
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: kPrimaryColor),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: kPrimaryColor),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-
-                            ),
-                          ),
-                        ),
-                        CustomButton2(text: 'Proceed', onTap: () {
-                          if (hoursNum != null) {
-                            garage.add({
-                              'time': DateTime.now()
-                                  .add(Duration(hours: int.parse(hoursNum!)))
-                                  .toString(),
-                              'id': pickedPacketNo,
+                        CarPacket(
+                          packetNum: Icons.looks_one_rounded,
+                          onTap: () {
+                            pickedPacketNo = '1';
+                            setState(() {
+                              checkoutForm = true;
                             });
-                            if (pickedPacketNo == '1') {
-                              getRemainingTime1();
-                            }
-                            if (pickedPacketNo == '2') {
-                              getRemainingTime2();
-                            }
-                            if (pickedPacketNo == '3') {
-                              getRemainingTime3();
-                            }
-                            if (pickedPacketNo == '4') {
-                              getRemainingTime4();
-                            }
-                            if (pickedPacketNo == '5') {
-                              getRemainingTime5();
-                            }
-                            if (pickedPacketNo == '6') {
-                              getRemainingTime6();
-                            }
-                            checkoutForm = false;
-                            hoursNum = null;
-                          }
-                        })
+                          }, used: isRented1,
+                          remainingTime: isRented1 ? remainingTime1 : Duration(seconds: 1),
+                        ),
+                        CarPacket(
+                          packetNum: Icons.looks_two_rounded,
+                          onTap: () {
+                            pickedPacketNo = '2';
+                            setState(() {
+                              checkoutForm = true;
+                            });
+                          }, used: isRented2,
+                          remainingTime: isRented2 ? remainingTime2 : Duration(
+                              seconds: 1),
+                        ),
                       ],
                     ),
-                  )),
+                    Row(
+                      children: [
+                        CarPacket(
+                          packetNum: Icons.looks_3_rounded,
+                          onTap: () {
+                            pickedPacketNo = '3';
+                            setState(() {
+                              checkoutForm = true;
+                            });
+                          }, used: isRented3,
+                          remainingTime: isRented3? remainingTime3 : Duration(hours: 1),
+                        ),
+                        CarPacket(
+                          packetNum: Icons.looks_4_rounded,
+                          onTap: () {
+                            pickedPacketNo = '4';
+                            setState(() {
+                              checkoutForm = true;
+                            });
+                          }, used: isRented4,
+                          remainingTime: isRented4 ? remainingTime4 : Duration(
+                              seconds: 1),
+                        ),
+
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        CarPacket(
+                          packetNum: Icons.looks_5_rounded,
+                          onTap: () {
+                            pickedPacketNo = '5';
+                            setState(() {
+                              checkoutForm = true;
+                            });
+                          }, used: isRented5,
+                          remainingTime: isRented5 ? remainingTime5 : Duration(
+                              seconds: 1),
+                        ),
+                        CarPacket(
+                          packetNum: Icons.looks_6_rounded,
+                          onTap: () {
+                            pickedPacketNo = '6';
+                            setState(() {
+                              checkoutForm = true;
+                            });
+                          }, used: isRented6,
+                          remainingTime: isRented6 ? remainingTime6 : Duration(
+                              seconds: 1),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Visibility(
+                    visible: checkoutForm,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          checkoutForm = false;
+                        });
+                      },
+                      child: Container(
+                        height: 1050,
+                        color: Colors.black54,
+                      ),
+                    )),
+                Visibility(
+                  visible: checkoutForm,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 280, horizontal: 60),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Column(
+                          children: [
+                            Text('Packet No.$pickedPacketNo',
+                              style: TextStyle(fontSize: 17),),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 26),
+                              child: TextField(
+                                onChanged: (data) {
+                                  hoursNum = data;
+                                },
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kPrimaryColor),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kPrimaryColor),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+
+                                ),
+                              ),
+                            ),
+                            CustomButton2(text: 'Proceed', onTap: () {
+                              if (hoursNum != null) {
+                                garage.add({
+                                  'time': DateTime.now()
+                                      .add(Duration(hours: int.parse(hoursNum!)))
+                                      .toString(),
+                                  'id': pickedPacketNo,
+                                });
+                                if (pickedPacketNo == '1') {
+                                  getRemainingTime1();
+                                }
+                                if (pickedPacketNo == '2') {
+                                  getRemainingTime2();
+                                }
+                                if (pickedPacketNo == '3') {
+                                  getRemainingTime3();
+                                }
+                                if (pickedPacketNo == '4') {
+                                  getRemainingTime4();
+                                }
+                                if (pickedPacketNo == '5') {
+                                  getRemainingTime5();
+                                }
+                                if (pickedPacketNo == '6') {
+                                  getRemainingTime6();
+                                }
+                                checkoutForm = false;
+                                hoursNum = null;
+                              }
+                            })
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
+          )
         ],
-      ),
+      )
     );
   }
 
