@@ -276,6 +276,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                           hoursNum = data;
                                         },
                                         decoration: InputDecoration(
+                                          hintText: 'Enter Duration (Hours)',
                                           fillColor: Colors.white,
                                           filled: true,
                                           border: OutlineInputBorder(
