@@ -29,11 +29,22 @@ class _CarPacketState extends State<CarPacket> {
       child: GestureDetector(
         onTap: widget.used? (){} :widget.onTap,
         child: Container(
-          height: 150,
+          height: 175,
           width: 150,
           decoration: BoxDecoration(
               color: widget.used? Colors.red : kPrimaryColor,
-              borderRadius: BorderRadius.circular(16)
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [BoxShadow(
+                color: Color.fromARGB(255, 150, 147, 147),
+                offset: Offset(-5.0,5.0),
+                blurRadius: 20,
+                spreadRadius: 0.5
+              ),BoxShadow(
+                color: kPrimaryColor!,
+                blurRadius: 0.0,
+                spreadRadius: 3.0,
+
+              )]
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
