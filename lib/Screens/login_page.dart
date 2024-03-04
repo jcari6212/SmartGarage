@@ -8,6 +8,7 @@ import '../Widgets/custom_text_form_field.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
+  CollectionReference garage = FirebaseFirestore.instance.collection('garage');
   String? email, password;
 
   GlobalKey<FormState> formKey = GlobalKey();
@@ -63,10 +64,18 @@ class LoginPage extends StatelessWidget {
                           .signInWithEmailAndPassword(
                               email: email!, password: password!);
 
-                      Navigator.pushNamed(context, 'chatPage',
-                          arguments: email);
+                      QuerySnapshot querySnapshot1 = await garage.where('email', isEqualTo: email).get();
+                      if(querySnapshot1.docs.isNotEmpty){
+                        Navigator.pushNamed(context, 'rentPage',
+                            arguments: email);
 
-                      fillOnlineMap();
+                      }else{
+                        Navigator.pushNamed(context, 'chatPage',
+                            arguments: email);
+                      }
+
+
+
                     } catch (e) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text(e.toString())));
@@ -109,18 +118,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Future<void> fillOnlineMap() async {
-    CollectionReference online = FirebaseFirestore.instance.collection('online');
 
-    QuerySnapshot querySnapshot = await online
-        .where('id', isEqualTo: email)
-        .get();
-    if (querySnapshot.docs.isEmpty) {
-      online.add({
-        'id': email,
-      });
-    }
-
-
-  }
 }
