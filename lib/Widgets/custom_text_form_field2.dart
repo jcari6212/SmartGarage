@@ -32,11 +32,11 @@ class CustomTextFormField2 extends StatelessWidget {
           fillColor: Colors.white,
           filled: true,
           border: OutlineInputBorder(
-            borderSide: const BorderSide(color: kPrimaryColor),
+            borderSide: BorderSide(color: kPrimaryColor!),
             borderRadius: BorderRadius.circular(12),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: kPrimaryColor),
+            borderSide: BorderSide(color: kPrimaryColor!),
             borderRadius: BorderRadius.circular(12),
           ),
           hintText: hintText,
