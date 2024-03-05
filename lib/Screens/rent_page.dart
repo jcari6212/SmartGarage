@@ -34,7 +34,7 @@ class _RentPageState extends State<RentPage> {
     });
 
     return Container(
-      color: Colors.red,
+      color: Colors.green,
     );
   }
 

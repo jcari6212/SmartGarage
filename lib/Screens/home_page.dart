@@ -8,27 +8,39 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/Bg.png"),
-            fit: BoxFit.cover,
+      body: Column(
+        children: [
+          Container(
+            height: 380,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/Bg.png"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight: Radius.circular(50)),
+                boxShadow: [BoxShadow(
+                    color: Color.fromARGB(255, 150, 147, 147),
+                    offset: Offset(-5.0,5.0),
+                    blurRadius: 20,
+                    spreadRadius: 0.5
+                )]
+            ),
+
           ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Expanded(child: SizedBox()),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text(
-                'Welcome, Smart Garage',
+               Text(
+                'Smart Garage',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 55,
+                  color: kPrimaryColor,
+                  fontSize: 38,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(
-                height: 220,
+                height: 140,
               ),
               CustomButton(
                   text: 'Login',
@@ -40,9 +52,11 @@ class HomePage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, 'registerPage');
                   }),
+              SizedBox(height: 50,)
             ],
+
           ),
-        ),
+        ],
       )
     );
   }
