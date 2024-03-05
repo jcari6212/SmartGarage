@@ -11,10 +11,13 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: 380,
+            height: 350,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: kPrimaryColor,
+              image: DecorationImage(
+                image: AssetImage('assets/International.png'),
+                fit: BoxFit.cover,
+              ),
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight: Radius.circular(50)),
                 boxShadow: [BoxShadow(
                     color: Color.fromARGB(255, 150, 147, 147),
@@ -24,7 +27,7 @@ class HomePage extends StatelessWidget {
                 )]
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 250),
+              padding: const EdgeInsets.only(top: 230),
               child: Center(
                 child: Text(
                   'Smart Garage',
