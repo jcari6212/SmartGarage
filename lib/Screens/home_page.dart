@@ -12,11 +12,9 @@ class HomePage extends StatelessWidget {
         children: [
           Container(
             height: 380,
+            width: double.infinity,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/Bg.png"),
-                fit: BoxFit.cover,
-              ),
+              color: kPrimaryColor,
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight: Radius.circular(50)),
                 boxShadow: [BoxShadow(
                     color: Color.fromARGB(255, 150, 147, 147),
@@ -25,23 +23,25 @@ class HomePage extends StatelessWidget {
                     spreadRadius: 0.5
                 )]
             ),
-
-          ),
-          Expanded(child: SizedBox()),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-               Text(
-                'Smart Garage',
-                style: TextStyle(
-                  color: kPrimaryColor,
-                  fontSize: 38,
-                  fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 250),
+              child: Center(
+                child: Text(
+                  'Smart Garage',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 38,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 140,
-              ),
+            ),
+
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 150,),
               CustomButton(
                   text: 'Login',
                   onTap: () {
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, 'registerPage');
                   }),
-              SizedBox(height: 50,)
+
             ],
 
           ),

@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constants.dart';
-
+import 'garage_page.dart';
 
 class RentPage extends StatefulWidget {
   const RentPage({super.key});
@@ -19,13 +20,9 @@ class _RentPageState extends State<RentPage> {
   String? email;
   String? username = '';
 
-
   @override
   Widget build(BuildContext context) {
-    email = ModalRoute
-        .of(context)!
-        .settings
-        .arguments as String;
+    email = ModalRoute.of(context)!.settings.arguments as String;
     setUsername();
 
     var period = const Duration(seconds: 1);
@@ -62,16 +59,26 @@ class _RentPageState extends State<RentPage> {
   }
 
   Future<void> checkIfStillRenting() async {
-    QuerySnapshot querySnapshot1 = await garage.where('email', isEqualTo: email).get();
-    if(querySnapshot1.docs.isEmpty){
-      Navigator.pushNamed(context, 'chatPage',
-          arguments: email);
-    }
+    // QuerySnapshot querySnapshot1 =
+    //     await garage.where('email', isEqualTo: email).get();
+    //
+    //   String? firebaseTime = querySnapshot1.docs.first["time"];
+    //   DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+    //   if (endTime.isBefore(DateTime.now())) {
+    //     await querySnapshot1.docs.first.reference.delete();
+    //     Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => ChatPage()),
+    //     );
+
+      // }
+
+
   }
 
   Future<void> setUsername() async {
     QuerySnapshot querySnapshot =
-    await users.where('email', isEqualTo: email).get();
+        await users.where('email', isEqualTo: email).get();
 
     username = await querySnapshot.docs.first["username"];
     setState(() {});
