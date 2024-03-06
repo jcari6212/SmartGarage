@@ -28,9 +28,12 @@ class _RentPageState extends State<RentPage> {
   Widget build(BuildContext context) {
     email = ModalRoute.of(context)!.settings.arguments as String;
     setUsername();
-    setState(() {
+    var period = const Duration(seconds: 1);
+    Timer.periodic(period, (arg) async {
       initializing();
     });
+
+
 
     return Scaffold(
       appBar: AppBar(
