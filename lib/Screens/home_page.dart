@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
             height: 350,
             width: double.infinity,
             decoration: BoxDecoration(
+              color: kPrimaryColor,
               image: DecorationImage(
                 image: AssetImage('assets/International.png'),
                 fit: BoxFit.cover,
@@ -27,14 +28,15 @@ class HomePage extends StatelessWidget {
                 )]
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 230),
+              padding: const EdgeInsets.only(top: 190),
               child: Center(
                 child: Text(
                   'Smart Garage',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 38,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
+
                   ),
                 ),
               ),

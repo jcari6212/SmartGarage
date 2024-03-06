@@ -73,9 +73,17 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            '$username',
-            style: const TextStyle(color: Colors.white),
+          iconTheme: IconThemeData(
+            color: Colors.white, // Set the desired color here
+          ),
+          title: Padding(
+            padding: const EdgeInsets.only(right: 50),
+            child: Center(
+              child: Text(
+                '$username',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
           ),
           backgroundColor: kPrimaryColor,
         ),
@@ -108,7 +116,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 20,
                       ),
                       CircularProgressIndicator(
                         color: Colors.white,
@@ -251,11 +259,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                         offset: Offset(-5.0,5.0),
                                         blurRadius: 20,
                                         spreadRadius: 0.5
-                                    ),BoxShadow(
-                                      color: Colors.white,
-                                      blurRadius: 0.0,
-                                      spreadRadius: 3.0,
-
                                     )]
                                 ),
 
@@ -291,57 +294,65 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                         ),
                                       ),
                                     ),
+                                    Text(
+                                      'Notice: You can rent only one packet',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
                                     CustomButton2(
                                         text: 'Proceed',
-                                        onTap: () {
-                                          if (hoursNum != null) {
-                                            garage.add({
-                                              'email': email,
-                                              'id': pickedPacketNo,
-                                              'time': DateTime.now()
-                                                  .add(Duration(
-                                                      hours:
-                                                          int.parse(hoursNum!)))
-                                                  .toString(),
-                                            });
-                                            if (pickedPacketNo == '1') {
-                                              getRemainingTime1();
-                                              Navigator.pushNamed(
-                                                  context, 'rentPage',
-                                                  arguments: email);
+                                        onTap: () async{
+                                          QuerySnapshot querySnapshot =
+                                              await garage.where('email', isEqualTo: email).get();
+                                          if(querySnapshot.docs.isEmpty){
+                                            if (hoursNum != null) {
+                                              garage.add({
+                                                'email': email,
+                                                'id': pickedPacketNo,
+                                                'time': DateTime.now()
+                                                    .add(Duration(
+                                                    hours:
+                                                    int.parse(hoursNum!)))
+                                                    .toString(),
+                                              });
+                                              if (pickedPacketNo == '1') {
+                                                getRemainingTime1();
+                                                Navigator.pushNamed(
+                                                    context, 'rentPage',
+                                                    arguments: email);
+                                              }
+                                              if (pickedPacketNo == '2') {
+                                                getRemainingTime2();
+                                                Navigator.pushNamed(
+                                                    context, 'rentPage',
+                                                    arguments: email);
+                                              }
+                                              if (pickedPacketNo == '3') {
+                                                getRemainingTime3();
+                                                Navigator.pushNamed(
+                                                    context, 'rentPage',
+                                                    arguments: email);
+                                              }
+                                              if (pickedPacketNo == '4') {
+                                                getRemainingTime4();
+                                                Navigator.pushNamed(
+                                                    context, 'rentPage',
+                                                    arguments: email);
+                                              }
+                                              if (pickedPacketNo == '5') {
+                                                getRemainingTime5();
+                                                Navigator.pushNamed(
+                                                    context, 'rentPage',
+                                                    arguments: email);
+                                              }
+                                              if (pickedPacketNo == '6') {
+                                                getRemainingTime6();
+                                                Navigator.pushNamed(
+                                                    context, 'rentPage',
+                                                    arguments: email);
+                                              }
+                                              checkoutForm = false;
+                                              hoursNum = null;
                                             }
-                                            if (pickedPacketNo == '2') {
-                                              getRemainingTime2();
-                                              Navigator.pushNamed(
-                                                  context, 'rentPage',
-                                                  arguments: email);
-                                            }
-                                            if (pickedPacketNo == '3') {
-                                              getRemainingTime3();
-                                              Navigator.pushNamed(
-                                                  context, 'rentPage',
-                                                  arguments: email);
-                                            }
-                                            if (pickedPacketNo == '4') {
-                                              getRemainingTime4();
-                                              Navigator.pushNamed(
-                                                  context, 'rentPage',
-                                                  arguments: email);
-                                            }
-                                            if (pickedPacketNo == '5') {
-                                              getRemainingTime5();
-                                              Navigator.pushNamed(
-                                                  context, 'rentPage',
-                                                  arguments: email);
-                                            }
-                                            if (pickedPacketNo == '6') {
-                                              getRemainingTime6();
-                                              Navigator.pushNamed(
-                                                  context, 'rentPage',
-                                                  arguments: email);
-                                            }
-                                            checkoutForm = false;
-                                            hoursNum = null;
                                           }
                                         })
                                   ],
