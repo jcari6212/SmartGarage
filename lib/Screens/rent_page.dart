@@ -21,7 +21,8 @@ class _RentPageState extends State<RentPage> {
   String? email;
   String? username = '';
   Duration? remainingTime;
-  String? usedPacketNum = '';
+  String usedPacketNum = ' ';
+
 
 
   @override
@@ -30,8 +31,11 @@ class _RentPageState extends State<RentPage> {
     setUsername();
     var period = const Duration(seconds: 1);
     Timer.periodic(period, (arg) async {
-      initializing();
+      setState(() {
+        initializing();
+      });
     });
+
 
 
 
@@ -102,13 +106,17 @@ class _RentPageState extends State<RentPage> {
   }
 
   Future<void> initializing() async {
+
     QuerySnapshot querySnapshot =
     await garage.where('email', isEqualTo: email).get();
     if(querySnapshot.docs.isNotEmpty){
       String? firebaseTime = await querySnapshot.docs.first["time"];
       DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
       DateTime currentTime = DateTime.now();
-      remainingTime = endTime.difference(currentTime);
+      setState(() {
+        remainingTime = endTime.difference(currentTime);
+
+      });
       usedPacketNum = await querySnapshot.docs.first["id"];
     }
   }
