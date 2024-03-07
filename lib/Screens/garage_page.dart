@@ -300,62 +300,67 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                     ),
                                     CustomButton2(
                                         text: 'Proceed',
-                                        onTap: () async{
-                                          QuerySnapshot querySnapshot =
-                                              await garage.where('email', isEqualTo: email).get();
-                                          if(querySnapshot.docs.isEmpty){
-                                            if (hoursNum != null) {
-                                              garage.add({
-                                                'email': email,
-                                                'id': pickedPacketNo,
-                                                'time': DateTime.now()
-                                                    .add(Duration(
-                                                    hours:
-                                                    int.parse(hoursNum!)))
-                                                    .toString(),
-                                              });
-                                              if (pickedPacketNo == '1') {
-                                                getRemainingTime1();
-                                                Navigator.pushNamed(
-                                                    context, 'rentPage',
-                                                    arguments: email);
-                                              }
-                                              if (pickedPacketNo == '2') {
-                                                getRemainingTime2();
-                                                Navigator.pushNamed(
-                                                    context, 'rentPage',
-                                                    arguments: email);
-                                              }
-                                              if (pickedPacketNo == '3') {
-                                                getRemainingTime3();
-                                                Navigator.pushNamed(
-                                                    context, 'rentPage',
-                                                    arguments: email);
-                                              }
-                                              if (pickedPacketNo == '4') {
-                                                getRemainingTime4();
-                                                Navigator.pushNamed(
-                                                    context, 'rentPage',
-                                                    arguments: email);
-                                              }
-                                              if (pickedPacketNo == '5') {
-                                                getRemainingTime5();
-                                                Navigator.pushNamed(
-                                                    context, 'rentPage',
-                                                    arguments: email);
-                                              }
-                                              if (pickedPacketNo == '6') {
-                                                getRemainingTime6();
-                                                Navigator.pushNamed(
-                                                    context, 'rentPage',
-                                                    arguments: email);
-                                              }
-                                              checkoutForm = false;
-                                              hoursNum = null;
-                                            }
-                                          }
-                                        })
-                                  ],
+                                        onTap: (){
+                                          Navigator.pushNamed(
+                                              context, 'paymentPage',
+                                              arguments: email);
+                                        },
+                                        // onTap: () async{
+                                        //   QuerySnapshot querySnapshot =
+                                        //       await garage.where('email', isEqualTo: email).get();
+                                        //   if(querySnapshot.docs.isEmpty){
+                                        //     if (hoursNum != null) {
+                                        //       garage.add({
+                                        //         'email': email,
+                                        //         'id': pickedPacketNo,
+                                        //         'time': DateTime.now()
+                                        //             .add(Duration(
+                                        //             hours:
+                                        //             int.parse(hoursNum!)))
+                                        //             .toString(),
+                                        //       });
+                                        //       if (pickedPacketNo == '1') {
+                                        //         getRemainingTime1();
+                                        //         Navigator.pushNamed(
+                                        //             context, 'rentPage',
+                                        //             arguments: email);
+                                        //       }
+                                        //       if (pickedPacketNo == '2') {
+                                        //         getRemainingTime2();
+                                        //         Navigator.pushNamed(
+                                        //             context, 'rentPage',
+                                        //             arguments: email);
+                                        //       }
+                                        //       if (pickedPacketNo == '3') {
+                                        //         getRemainingTime3();
+                                        //         Navigator.pushNamed(
+                                        //             context, 'rentPage',
+                                        //             arguments: email);
+                                        //       }
+                                        //       if (pickedPacketNo == '4') {
+                                        //         getRemainingTime4();
+                                        //         Navigator.pushNamed(
+                                        //             context, 'rentPage',
+                                        //             arguments: email);
+                                        //       }
+                                        //       if (pickedPacketNo == '5') {
+                                        //         getRemainingTime5();
+                                        //         Navigator.pushNamed(
+                                        //             context, 'rentPage',
+                                        //             arguments: email);
+                                        //       }
+                                        //       if (pickedPacketNo == '6') {
+                                        //         getRemainingTime6();
+                                        //         Navigator.pushNamed(
+                                        //             context, 'rentPage',
+                                        //             arguments: email);
+                                        //       }
+                                        //       checkoutForm = false;
+                                        //       hoursNum = null;
+                                        //     }
+                                        //   }
+                                        // })
+                                    )],
                                 ),
                               ),
                             ),

@@ -8,7 +8,9 @@ import '../constants.dart';
 
 
 class RentPage extends StatefulWidget {
-  const RentPage({super.key});
+  RentPage({super.key});
+
+  bool active = false;
 
   @override
   State<RentPage> createState() => _RentPageState();
@@ -23,17 +25,24 @@ class _RentPageState extends State<RentPage> {
   Duration? remainingTime;
   String usedPacketNum = ' ';
 
-
-
   @override
   Widget build(BuildContext context) {
     email = ModalRoute.of(context)!.settings.arguments as String;
     setUsername();
     var period = const Duration(seconds: 1);
     Timer.periodic(period, (arg) async {
-      setState(() {
-        initializing();
-      });
+      QuerySnapshot querySnapshot =
+      await garage.where('email', isEqualTo: email).get();
+      if(querySnapshot.docs.isNotEmpty){
+        String? firebaseTime = await querySnapshot.docs.first["time"];
+        DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
+        DateTime currentTime = DateTime.now();
+        remainingTime = endTime.difference(currentTime);
+        setState(() {
+          widget.active = true;
+        });
+        usedPacketNum = await querySnapshot.docs.first["id"];
+      }
     });
 
 
@@ -80,7 +89,7 @@ class _RentPageState extends State<RentPage> {
                 children: [
                   Text('Remaining Time: ',style: TextStyle(fontSize: 19),),
                   SlideCountdown(
-                    duration: remainingTime,
+                    duration: widget.active? remainingTime : Duration(seconds: 5),
                     decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(8),
@@ -107,19 +116,10 @@ class _RentPageState extends State<RentPage> {
 
   Future<void> initializing() async {
 
-    QuerySnapshot querySnapshot =
-    await garage.where('email', isEqualTo: email).get();
-    if(querySnapshot.docs.isNotEmpty){
-      String? firebaseTime = await querySnapshot.docs.first["time"];
-      DateTime endTime = DateFormat('yyyy-MM-dd HH:mm:ss').parse(firebaseTime!);
-      DateTime currentTime = DateTime.now();
-      setState(() {
-        remainingTime = endTime.difference(currentTime);
-
-      });
-      usedPacketNum = await querySnapshot.docs.first["id"];
-    }
   }
+
+
+
 
   Future<void> setUsername() async {
     QuerySnapshot querySnapshot =

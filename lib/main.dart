@@ -4,6 +4,7 @@ import 'package:untitled/Screens/garage_page.dart';
 import 'package:untitled/Screens/home_page.dart';
 import 'package:untitled/Screens/login_page.dart';
 import 'package:untitled/Screens/rent_page.dart';
+import 'Screens/payment_page.dart';
 import 'firebase_options.dart';
 import 'Screens/register_page.dart';
 
@@ -16,13 +17,14 @@ void main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: 'homePage',
+    initialRoute: 'paymentPage',
     routes: {
       'homePage': (context) => const HomePage(),
       'loginPage': (context) => LoginPage(),
       'registerPage': (context) => RegisterPage(),
       'chatPage': (context) => ChatPage(),
       'rentPage': (context) => RentPage(),
+      'paymentPage': (context) => PaymentPage(),
     },
   ));
 
