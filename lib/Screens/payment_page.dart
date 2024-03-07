@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/Widgets/custom_button.dart';
+import 'package:untitled/Widgets/custom_button2.dart';
 import 'package:untitled/Widgets/custom_text_field.dart';
 import 'package:untitled/constants.dart';
 
@@ -42,7 +44,7 @@ class PaymentPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 70,left: 22),
+                    padding: const EdgeInsets.only(top: 60,left: 22),
                     child: Text('Card Number',style: TextStyle(fontSize: 16),),
                   ),
                   Padding(
@@ -52,7 +54,7 @@ class PaymentPage extends StatelessWidget {
 
                       },
                       decoration: InputDecoration(
-                        hintText: '1234 4322 5865 4525',
+                        hintText: ' 1234 4322 5865 4525',
                         fillColor: Color(0xffeeeeee),
                         filled: true,
                         border: OutlineInputBorder(
@@ -99,6 +101,37 @@ class PaymentPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20,left: 22),
+                    child: Text('Name on card',style: TextStyle(fontSize: 16),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10,left: 22,right: 34),
+                    child: TextField(
+                      onChanged: (data) {
+
+                      },
+                      decoration: InputDecoration(
+                        hintText: ' Islam Yasser',
+                        fillColor: Color(0xffeeeeee),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xffeeeeee)),
+                          borderRadius:
+                          BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xffeeeeee)),
+                          borderRadius:
+                          BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  CustomButton2(text: 'Proceed', onTap: (){})
                 ],
               ),
             ),

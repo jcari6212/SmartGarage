@@ -16,11 +16,6 @@ class CustomButton2 extends StatelessWidget {
         decoration: BoxDecoration(
             color: kPrimaryColor, borderRadius: BorderRadius.circular(8),
             boxShadow: [BoxShadow(
-                color: Color.fromARGB(255, 150, 147, 147),
-                offset: Offset(-5.0,5.0),
-                blurRadius: 20,
-                spreadRadius: 0.5
-            ),BoxShadow(
               color: kPrimaryColor!,
               blurRadius: 0.0,
               spreadRadius: 3.0,
