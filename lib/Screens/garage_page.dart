@@ -6,6 +6,8 @@ import 'package:untitled/constants.dart';
 import 'package:untitled/shared_data.dart';
 import 'dart:async';
 import '../Widgets/car_packet.dart';
+import '../Widgets/custom_button.dart';
+import '../Widgets/pay_button.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -26,9 +28,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   String? email;
   String? username = '';
   String? friendEmail = '';
-
-
-
+  String? price = '   ';
   bool checkoutForm = false;
   bool isRented1 = false;
   bool isRented2 = false;
@@ -238,6 +238,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                               onTap: () {
                                 setState(() {
                                   checkoutForm = false;
+                                  price='   ';
                                 });
                               },
                               child: Container(
@@ -249,108 +250,135 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                           visible: checkoutForm,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 280, horizontal: 60),
+                                vertical: 150, horizontal: 40),
                             child: SingleChildScrollView(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [BoxShadow(
-                                        color: Color.fromARGB(255, 150, 147, 147),
-                                        offset: Offset(-5.0,5.0),
-                                        blurRadius: 20,
-                                        spreadRadius: 0.5
-                                    )]
-                                ),
+                              child: Column(
 
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Packet No.${SharedData.pickedPacketNo}',
-                                      style: TextStyle(fontSize: 17),
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(16),
+                                        boxShadow: [BoxShadow(
+                                            color: Color.fromARGB(255, 150, 147, 147),
+                                            offset: Offset(-5.0,5.0),
+                                            blurRadius: 20,
+                                            spreadRadius: 0.5
+                                        )]
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 26),
-                                      child: TextField(
-                                        onChanged: (data) {
-                                          SharedData.hoursNum = data;
-                                        },
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter Duration (Hours)',
-                                          fillColor: Colors.white,
-                                          filled: true,
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: kPrimaryColor!),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: kPrimaryColor!),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Packet No.${SharedData.pickedPacketNo}',
+                                          style: TextStyle(fontSize: 17),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16, vertical: 26),
+                                          child: TextField(
+                                            onChanged: (data) {
+                                              SharedData.hoursNum = data;
+                                              price = (int.parse(SharedData.hoursNum!) * 5).toString();
+                                            },
+                                            decoration: InputDecoration(
+                                              hintText: 'Enter Hours (1 hour = 5\$)',
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: kPrimaryColor!),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: kPrimaryColor!),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Notice: You can rent only one packet',
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                    CustomButton2(
-                                        text: 'Proceed',
-                                        onTap: () async{
-                                          SharedData.secondHoursNum = SharedData.hoursNum;
-                                          QuerySnapshot querySnapshot =
-                                              await garage.where('email', isEqualTo: email).get();
-                                          if(querySnapshot.docs.isEmpty){
-                                            if (SharedData.hoursNum != null) {
+                                        Text(
+                                          'Notice: You can rent only one packet',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        SizedBox(height: 5,),
+                                        Container(
+                                          height: 90,
+                                          decoration: BoxDecoration(
+                                              color: kPrimaryColor,
+                                            borderRadius: BorderRadius.circular(16)
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 32),
+                                                child: GestureDetector(
+                                                  onTap: () async{
+                                                    SharedData.secondHoursNum = SharedData.hoursNum;
+                                                    QuerySnapshot querySnapshot =
+                                                    await garage.where('email', isEqualTo: email).get();
+                                                    if(querySnapshot.docs.isEmpty){
+                                                      if (SharedData.hoursNum != null) {
 
-                                              if (SharedData.pickedPacketNo == '1') {
-                                                getRemainingTime1();
-                                                Navigator.pushNamed(
-                                                    context, 'paymentPage',
-                                                    arguments: email);
-                                              }
-                                              if (SharedData.pickedPacketNo == '2') {
-                                                getRemainingTime2();
-                                                Navigator.pushNamed(
-                                                    context, 'paymentPage',
-                                                    arguments: email);
-                                              }
-                                              if (SharedData.pickedPacketNo == '3') {
-                                                getRemainingTime3();
-                                                Navigator.pushNamed(
-                                                    context, 'paymentPage',
-                                                    arguments: email);
-                                              }
-                                              if (SharedData.pickedPacketNo == '4') {
-                                                getRemainingTime4();
-                                                Navigator.pushNamed(
-                                                    context, 'paymentPage',
-                                                    arguments: email);
-                                              }
-                                              if (SharedData.pickedPacketNo == '5') {
-                                                getRemainingTime5();
-                                                Navigator.pushNamed(
-                                                    context, 'paymentPage',
-                                                    arguments: email);
-                                              }
-                                              if (SharedData.pickedPacketNo == '6') {
-                                                getRemainingTime6();
-                                                Navigator.pushNamed(
-                                                    context, 'paymentPage',
-                                                    arguments: email);
-                                              }
-                                              checkoutForm = false;
-                                              SharedData.hoursNum = null;
-                                            }
-                                          }
-                                        })
-                                    ],
-                                ),
+                                                        if (SharedData.pickedPacketNo == '1') {
+                                                          getRemainingTime1();
+                                                          Navigator.pushNamed(
+                                                              context, 'paymentPage',
+                                                              arguments: email);
+                                                        }
+                                                        if (SharedData.pickedPacketNo == '2') {
+                                                          getRemainingTime2();
+                                                          Navigator.pushNamed(
+                                                              context, 'paymentPage',
+                                                              arguments: email);
+                                                        }
+                                                        if (SharedData.pickedPacketNo == '3') {
+                                                          getRemainingTime3();
+                                                          Navigator.pushNamed(
+                                                              context, 'paymentPage',
+                                                              arguments: email);
+                                                        }
+                                                        if (SharedData.pickedPacketNo == '4') {
+                                                          getRemainingTime4();
+                                                          Navigator.pushNamed(
+                                                              context, 'paymentPage',
+                                                              arguments: email);
+                                                        }
+                                                        if (SharedData.pickedPacketNo == '5') {
+                                                          getRemainingTime5();
+                                                          Navigator.pushNamed(
+                                                              context, 'paymentPage',
+                                                              arguments: email);
+                                                        }
+                                                        if (SharedData.pickedPacketNo == '6') {
+                                                          getRemainingTime6();
+                                                          Navigator.pushNamed(
+                                                              context, 'paymentPage',
+                                                              arguments: email);
+                                                        }
+                                                        checkoutForm = false;
+                                                        SharedData.hoursNum = null;
+                                                      }
+                                                    }
+                                                  },
+                                                  child: PayButtom(),
+                                                ),
+                                              ),
+                                              Expanded(child: SizedBox()),
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 28),
+                                                child: Text('\$ $price',style: TextStyle(color: Colors.white,fontSize: 26,fontWeight: FontWeight.bold),),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                        ],
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
