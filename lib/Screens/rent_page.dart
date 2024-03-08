@@ -10,7 +10,7 @@ import '../constants.dart';
 class RentPage extends StatefulWidget {
   RentPage({super.key});
 
-  bool active = false;
+  bool activeSlideDown = false;
 
   @override
   State<RentPage> createState() => _RentPageState();
@@ -39,7 +39,7 @@ class _RentPageState extends State<RentPage> {
         DateTime currentTime = DateTime.now();
         remainingTime = endTime.difference(currentTime);
         setState(() {
-          widget.active = true;
+          widget.activeSlideDown = true;
         });
         usedPacketNum = await querySnapshot.docs.first["id"];
       }
@@ -88,12 +88,15 @@ class _RentPageState extends State<RentPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Remaining Time: ',style: TextStyle(fontSize: 19),),
-                  SlideCountdown(
-                    duration: widget.active? remainingTime : Duration(seconds: 5),
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(8),
+                  Visibility(
+                    visible: widget.activeSlideDown,
+                    child: SlideCountdown(
+                      duration: widget.activeSlideDown? remainingTime : Duration(seconds: 5),
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.circular(8),
 
+                      ),
                     ),
                   ),
                 ],
@@ -103,6 +106,9 @@ class _RentPageState extends State<RentPage> {
                 QuerySnapshot querySnapshot =
                   await garage.where('email', isEqualTo: email).get();
                 await querySnapshot.docs.first.reference.delete();
+                setState(() {
+                  widget.activeSlideDown=false;
+                });
                 Navigator.pushNamed(
                     context, 'chatPage',
                     arguments: email);

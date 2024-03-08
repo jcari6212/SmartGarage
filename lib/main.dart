@@ -17,7 +17,7 @@ void main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: 'paymentPage',
+    initialRoute: 'homePage',
     routes: {
       'homePage': (context) => const HomePage(),
       'loginPage': (context) => LoginPage(),

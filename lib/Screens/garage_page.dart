@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled/Widgets/custom_button2.dart';
 import 'package:untitled/constants.dart';
+import 'package:untitled/shared_data.dart';
 import 'dart:async';
 import '../Widgets/car_packet.dart';
 
@@ -26,8 +27,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   String? username = '';
   String? friendEmail = '';
 
-  String? pickedPacketNo;
-  String? hoursNum;
+
+
   bool checkoutForm = false;
   bool isRented1 = false;
   bool isRented2 = false;
@@ -141,7 +142,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 CarPacket(
                                   packetNum: Icons.looks_one_rounded,
                                   onTap: () {
-                                    pickedPacketNo = '1';
+                                    SharedData.pickedPacketNo = '1';
                                     setState(() {
                                       checkoutForm = true;
                                     });
@@ -154,7 +155,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 CarPacket(
                                   packetNum: Icons.looks_two_rounded,
                                   onTap: () {
-                                    pickedPacketNo = '2';
+                                    SharedData.pickedPacketNo = '2';
                                     setState(() {
                                       checkoutForm = true;
                                     });
@@ -171,7 +172,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 CarPacket(
                                   packetNum: Icons.looks_3_rounded,
                                   onTap: () {
-                                    pickedPacketNo = '3';
+                                    SharedData.pickedPacketNo = '3';
                                     setState(() {
                                       checkoutForm = true;
                                     });
@@ -184,7 +185,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 CarPacket(
                                   packetNum: Icons.looks_4_rounded,
                                   onTap: () {
-                                    pickedPacketNo = '4';
+                                    SharedData.pickedPacketNo = '4';
                                     setState(() {
                                       checkoutForm = true;
                                     });
@@ -201,7 +202,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 CarPacket(
                                   packetNum: Icons.looks_5_rounded,
                                   onTap: () {
-                                    pickedPacketNo = '5';
+                                    SharedData.pickedPacketNo = '5';
                                     setState(() {
                                       checkoutForm = true;
                                     });
@@ -214,7 +215,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 CarPacket(
                                   packetNum: Icons.looks_6_rounded,
                                   onTap: () {
-                                    pickedPacketNo = '6';
+                                    SharedData.pickedPacketNo = '6';
                                     setState(() {
                                       checkoutForm = true;
                                     });
@@ -265,7 +266,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                 child: Column(
                                   children: [
                                     Text(
-                                      'Packet No.$pickedPacketNo',
+                                      'Packet No.${SharedData.pickedPacketNo}',
                                       style: TextStyle(fontSize: 17),
                                     ),
                                     Padding(
@@ -273,7 +274,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                           horizontal: 16, vertical: 26),
                                       child: TextField(
                                         onChanged: (data) {
-                                          hoursNum = data;
+                                          SharedData.hoursNum = data;
                                         },
                                         decoration: InputDecoration(
                                           hintText: 'Enter Duration (Hours)',
@@ -300,67 +301,55 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                     ),
                                     CustomButton2(
                                         text: 'Proceed',
-                                        onTap: (){
-                                          Navigator.pushNamed(
-                                              context, 'paymentPage',
-                                              arguments: email);
-                                        },
-                                        // onTap: () async{
-                                        //   QuerySnapshot querySnapshot =
-                                        //       await garage.where('email', isEqualTo: email).get();
-                                        //   if(querySnapshot.docs.isEmpty){
-                                        //     if (hoursNum != null) {
-                                        //       garage.add({
-                                        //         'email': email,
-                                        //         'id': pickedPacketNo,
-                                        //         'time': DateTime.now()
-                                        //             .add(Duration(
-                                        //             hours:
-                                        //             int.parse(hoursNum!)))
-                                        //             .toString(),
-                                        //       });
-                                        //       if (pickedPacketNo == '1') {
-                                        //         getRemainingTime1();
-                                        //         Navigator.pushNamed(
-                                        //             context, 'rentPage',
-                                        //             arguments: email);
-                                        //       }
-                                        //       if (pickedPacketNo == '2') {
-                                        //         getRemainingTime2();
-                                        //         Navigator.pushNamed(
-                                        //             context, 'rentPage',
-                                        //             arguments: email);
-                                        //       }
-                                        //       if (pickedPacketNo == '3') {
-                                        //         getRemainingTime3();
-                                        //         Navigator.pushNamed(
-                                        //             context, 'rentPage',
-                                        //             arguments: email);
-                                        //       }
-                                        //       if (pickedPacketNo == '4') {
-                                        //         getRemainingTime4();
-                                        //         Navigator.pushNamed(
-                                        //             context, 'rentPage',
-                                        //             arguments: email);
-                                        //       }
-                                        //       if (pickedPacketNo == '5') {
-                                        //         getRemainingTime5();
-                                        //         Navigator.pushNamed(
-                                        //             context, 'rentPage',
-                                        //             arguments: email);
-                                        //       }
-                                        //       if (pickedPacketNo == '6') {
-                                        //         getRemainingTime6();
-                                        //         Navigator.pushNamed(
-                                        //             context, 'rentPage',
-                                        //             arguments: email);
-                                        //       }
-                                        //       checkoutForm = false;
-                                        //       hoursNum = null;
-                                        //     }
-                                        //   }
-                                        // })
-                                    )],
+                                        onTap: () async{
+                                          SharedData.secondHoursNum = SharedData.hoursNum;
+                                          QuerySnapshot querySnapshot =
+                                              await garage.where('email', isEqualTo: email).get();
+                                          if(querySnapshot.docs.isEmpty){
+                                            if (SharedData.hoursNum != null) {
+
+                                              if (SharedData.pickedPacketNo == '1') {
+                                                getRemainingTime1();
+                                                Navigator.pushNamed(
+                                                    context, 'paymentPage',
+                                                    arguments: email);
+                                              }
+                                              if (SharedData.pickedPacketNo == '2') {
+                                                getRemainingTime2();
+                                                Navigator.pushNamed(
+                                                    context, 'paymentPage',
+                                                    arguments: email);
+                                              }
+                                              if (SharedData.pickedPacketNo == '3') {
+                                                getRemainingTime3();
+                                                Navigator.pushNamed(
+                                                    context, 'paymentPage',
+                                                    arguments: email);
+                                              }
+                                              if (SharedData.pickedPacketNo == '4') {
+                                                getRemainingTime4();
+                                                Navigator.pushNamed(
+                                                    context, 'paymentPage',
+                                                    arguments: email);
+                                              }
+                                              if (SharedData.pickedPacketNo == '5') {
+                                                getRemainingTime5();
+                                                Navigator.pushNamed(
+                                                    context, 'paymentPage',
+                                                    arguments: email);
+                                              }
+                                              if (SharedData.pickedPacketNo == '6') {
+                                                getRemainingTime6();
+                                                Navigator.pushNamed(
+                                                    context, 'paymentPage',
+                                                    arguments: email);
+                                              }
+                                              checkoutForm = false;
+                                              SharedData.hoursNum = null;
+                                            }
+                                          }
+                                        })
+                                    ],
                                 ),
                               ),
                             ),
