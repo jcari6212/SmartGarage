@@ -250,7 +250,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                           visible: checkoutForm,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 150, horizontal: 40),
+                                vertical: 180, horizontal: 40),
                             child: SingleChildScrollView(
                               child: Column(
 
@@ -259,12 +259,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(16),
-                                        boxShadow: [BoxShadow(
-                                            color: Color.fromARGB(255, 150, 147, 147),
-                                            offset: Offset(-5.0,5.0),
-                                            blurRadius: 20,
-                                            spreadRadius: 0.5
-                                        )]
+
                                     ),
                                     child: Column(
                                       children: [
@@ -281,7 +276,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                               price = (int.parse(SharedData.hoursNum!) * 5).toString();
                                             },
                                             decoration: InputDecoration(
-                                              hintText: 'Enter Hours (1 hour = 5\$)',
+                                              hintText: 'Enter Hours (1 hour = \$5)',
                                               fillColor: Colors.white,
                                               filled: true,
                                               border: OutlineInputBorder(

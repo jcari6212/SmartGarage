@@ -102,7 +102,7 @@ class _RentPageState extends State<RentPage> {
                 ],
               ),
               SizedBox(height: 90,),
-              CustomButton2(text: 'Cancel', onTap: () async {
+              CustomButton2(text: 'Cancel my rent', onTap: () async {
                 QuerySnapshot querySnapshot =
                   await garage.where('email', isEqualTo: email).get();
                 await querySnapshot.docs.first.reference.delete();
