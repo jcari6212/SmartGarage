@@ -44,6 +44,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   Duration? remainingTime6;
   int placesLeftText = 6;
   double placesLeftCircle=0.0;
+  String notice = 'Notice: You can rent only one packet';
 
   @override
   initState() {
@@ -295,7 +296,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                           ),
                                         ),
                                         Text(
-                                          'Notice: You can rent only one packet',
+                                          '$notice',
                                           style: TextStyle(fontSize: 12),
                                         ),
                                         SizedBox(height: 5,),
@@ -311,51 +312,55 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                                 padding: const EdgeInsets.only(left: 32),
                                                 child: GestureDetector(
                                                   onTap: () async{
-                                                    SharedData.secondHoursNum = SharedData.hoursNum;
-                                                    QuerySnapshot querySnapshot =
-                                                    await garage.where('email', isEqualTo: email).get();
-                                                    if(querySnapshot.docs.isEmpty){
-                                                      if (SharedData.hoursNum != null) {
+                                                    if(int.parse(SharedData.hoursNum!) > 0 && int.parse(SharedData.hoursNum!) < 750){
+                                                      SharedData.secondHoursNum = SharedData.hoursNum;
+                                                      QuerySnapshot querySnapshot =
+                                                      await garage.where('email', isEqualTo: email).get();
+                                                      if(querySnapshot.docs.isEmpty){
+                                                        if (SharedData.hoursNum != null) {
 
-                                                        if (SharedData.pickedPacketNo == '1') {
-                                                          getRemainingTime1();
-                                                          Navigator.pushNamed(
-                                                              context, 'paymentPage',
-                                                              arguments: email);
+                                                          if (SharedData.pickedPacketNo == '1') {
+                                                            getRemainingTime1();
+                                                            Navigator.pushNamed(
+                                                                context, 'paymentPage',
+                                                                arguments: email);
+                                                          }
+                                                          if (SharedData.pickedPacketNo == '2') {
+                                                            getRemainingTime2();
+                                                            Navigator.pushNamed(
+                                                                context, 'paymentPage',
+                                                                arguments: email);
+                                                          }
+                                                          if (SharedData.pickedPacketNo == '3') {
+                                                            getRemainingTime3();
+                                                            Navigator.pushNamed(
+                                                                context, 'paymentPage',
+                                                                arguments: email);
+                                                          }
+                                                          if (SharedData.pickedPacketNo == '4') {
+                                                            getRemainingTime4();
+                                                            Navigator.pushNamed(
+                                                                context, 'paymentPage',
+                                                                arguments: email);
+                                                          }
+                                                          if (SharedData.pickedPacketNo == '5') {
+                                                            getRemainingTime5();
+                                                            Navigator.pushNamed(
+                                                                context, 'paymentPage',
+                                                                arguments: email);
+                                                          }
+                                                          if (SharedData.pickedPacketNo == '6') {
+                                                            getRemainingTime6();
+                                                            Navigator.pushNamed(
+                                                                context, 'paymentPage',
+                                                                arguments: email);
+                                                          }
+                                                          checkoutForm = false;
+                                                          SharedData.hoursNum = null;
                                                         }
-                                                        if (SharedData.pickedPacketNo == '2') {
-                                                          getRemainingTime2();
-                                                          Navigator.pushNamed(
-                                                              context, 'paymentPage',
-                                                              arguments: email);
-                                                        }
-                                                        if (SharedData.pickedPacketNo == '3') {
-                                                          getRemainingTime3();
-                                                          Navigator.pushNamed(
-                                                              context, 'paymentPage',
-                                                              arguments: email);
-                                                        }
-                                                        if (SharedData.pickedPacketNo == '4') {
-                                                          getRemainingTime4();
-                                                          Navigator.pushNamed(
-                                                              context, 'paymentPage',
-                                                              arguments: email);
-                                                        }
-                                                        if (SharedData.pickedPacketNo == '5') {
-                                                          getRemainingTime5();
-                                                          Navigator.pushNamed(
-                                                              context, 'paymentPage',
-                                                              arguments: email);
-                                                        }
-                                                        if (SharedData.pickedPacketNo == '6') {
-                                                          getRemainingTime6();
-                                                          Navigator.pushNamed(
-                                                              context, 'paymentPage',
-                                                              arguments: email);
-                                                        }
-                                                        checkoutForm = false;
-                                                        SharedData.hoursNum = null;
                                                       }
+                                                    }else{
+                                                      notice = 'Notice: hours 1 ~ 750 (1 Month)';
                                                     }
                                                   },
                                                   child: PayButtom(),
