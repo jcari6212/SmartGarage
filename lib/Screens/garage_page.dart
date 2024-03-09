@@ -275,6 +275,12 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                             onChanged: (data) {
                                               SharedData.hoursNum = data;
                                               price = (int.parse(SharedData.hoursNum!) * 5).toString();
+                                              if(int.parse(SharedData.hoursNum!) > 0 && int.parse(SharedData.hoursNum!) < 750){
+                                                notice = 'Notice: You can rent only one packet';
+                                              }else {
+                                                notice =
+                                                'Notice: hours 1 ~ 749 (1 Month)';
+                                              }
                                             },
                                             decoration: InputDecoration(
                                               hintText: 'Enter Hours (1 hour = \$5)',
@@ -359,8 +365,6 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                                           SharedData.hoursNum = null;
                                                         }
                                                       }
-                                                    }else{
-                                                      notice = 'Notice: hours 1 ~ 750 (1 Month)';
                                                     }
                                                   },
                                                   child: PayButtom(),
