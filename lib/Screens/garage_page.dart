@@ -42,7 +42,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
   Duration? remainingTime4;
   Duration? remainingTime5;
   Duration? remainingTime6;
-  int placesLeftText = 6;
+  int placesLeftText = 5;
   double placesLeftCircle=0.0;
   String notice = 'Notice: You can rent only one packet';
 
@@ -58,7 +58,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
       getRemainingTime3();
       getRemainingTime4();
       getRemainingTime5();
-      getRemainingTime6();
+     // getRemainingTime6();
     });
   }
 
@@ -213,19 +213,7 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
                                       ? remainingTime5
                                       : Duration(seconds: 1),
                                 ),
-                                CarPacket(
-                                  packetNum: Icons.looks_6_rounded,
-                                  onTap: () {
-                                    SharedData.pickedPacketNo = '6';
-                                    setState(() {
-                                      checkoutForm = true;
-                                    });
-                                  },
-                                  used: isRented6,
-                                  remainingTime: isRented6
-                                      ? remainingTime6
-                                      : Duration(seconds: 1),
-                                ),
+                                
                               ],
                             ),
                             SizedBox(
@@ -426,8 +414,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
 
     QuerySnapshot querySnapshot = await garage.get();
-    placesLeftText = 6 - querySnapshot.size;
-    placesLeftCircle = 1 - (placesLeftText / 6);
+    placesLeftText = 5 - querySnapshot.size;
+    placesLeftCircle = 1 - (placesLeftText / 5);
 
   }
 
@@ -452,8 +440,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
 
     QuerySnapshot querySnapshot = await garage.get();
-    placesLeftText = 6 - querySnapshot.size;
-    placesLeftCircle = 1 - (placesLeftText / 6);
+    placesLeftText = 5 - querySnapshot.size;
+    placesLeftCircle = 1 - (placesLeftText / 5);
   }
 
   Future<void> getRemainingTime3() async {
@@ -477,8 +465,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
 
     QuerySnapshot querySnapshot = await garage.get();
-    placesLeftText = 6 - querySnapshot.size;
-    placesLeftCircle = 1 - (placesLeftText / 6);
+    placesLeftText = 5 - querySnapshot.size;
+    placesLeftCircle = 1 - (placesLeftText / 5);
   }
 
   Future<void> getRemainingTime4() async {
@@ -502,8 +490,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
 
     QuerySnapshot querySnapshot = await garage.get();
-    placesLeftText = 6 - querySnapshot.size;
-    placesLeftCircle = 1 - (placesLeftText / 6);
+    placesLeftText = 5 - querySnapshot.size;
+    placesLeftCircle = 1 - (placesLeftText / 5);
   }
 
   Future<void> getRemainingTime5() async {
@@ -527,8 +515,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
 
     QuerySnapshot querySnapshot = await garage.get();
-    placesLeftText = 6 - querySnapshot.size;
-    placesLeftCircle = 1 - (placesLeftText / 6);
+    placesLeftText = 5 - querySnapshot.size;
+    placesLeftCircle = 1 - (placesLeftText / 5);
   }
 
   Future<void> getRemainingTime6() async {
@@ -552,8 +540,8 @@ class _ChatPageState extends State<ChatPage> with WidgetsBindingObserver {
     }
 
     QuerySnapshot querySnapshot = await garage.get();
-    placesLeftText = 6 - querySnapshot.size;
-    placesLeftCircle = 1 - (placesLeftText / 6);
+    placesLeftText = 5 - querySnapshot.size;
+    placesLeftCircle = 1 - (placesLeftText / 5);
   }
 
 

@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "643546675693",
-    "project_id": "chatapp-22e1c",
-    "storage_bucket": "chatapp-22e1c.appspot.com"
+    "project_number": "161744756890",
+    "firebase_url": "https://smartgarage-a7ce3-default-rtdb.firebaseio.com",
+    "project_id": "smartgarage-a7ce3",
+    "storage_bucket": "smartgarage-a7ce3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:643546675693:android:9f37b75e7b3fc58edd4fe4",
+        "mobilesdk_app_id": "1:161744756890:android:223113bff52a9049b23f23",
         "android_client_info": {
           "package_name": "com.example.untitled"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC--W4Kv10RBnf0OIGhPOO80tNSAmAhBes"
+          "current_key": "AIzaSyBDq8m59iA2BMss8xi7hmxvcuxVOIU6NDQ"
         }
       ],
       "services": {

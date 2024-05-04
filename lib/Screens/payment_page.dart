@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -203,6 +204,9 @@ class PaymentPage extends StatelessWidget {
                                 int.parse(SharedData.secondHoursNum!)))
                                 .toString(),
                           });
+                          DatabaseReference ref = FirebaseDatabase.instance.ref("slot");
+                          ref.set(int.parse(SharedData.pickedPacketNo!));
+
                           Future.delayed(Duration(seconds: 3), () async{
                             Navigator.pushNamed(
                                 context, 'rentPage',

@@ -50,19 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC--W4Kv10RBnf0OIGhPOO80tNSAmAhBes',
-    appId: '1:643546675693:android:9f37b75e7b3fc58edd4fe4',
-    messagingSenderId: '643546675693',
-    projectId: 'chatapp-22e1c',
-    storageBucket: 'chatapp-22e1c.appspot.com',
+    apiKey: 'AIzaSyBDq8m59iA2BMss8xi7hmxvcuxVOIU6NDQ',
+    appId: '1:161744756890:android:223113bff52a9049b23f23',
+    messagingSenderId: '161744756890',
+    projectId: 'smartgarage-a7ce3',
+    databaseURL: 'https://smartgarage-a7ce3-default-rtdb.firebaseio.com',
+    storageBucket: 'smartgarage-a7ce3.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD-JhFwrFWFiQI09fKJ9BBKStGRU992Yw4',
-    appId: '1:643546675693:ios:9822692d2cc556f7dd4fe4',
-    messagingSenderId: '643546675693',
-    projectId: 'chatapp-22e1c',
-    storageBucket: 'chatapp-22e1c.appspot.com',
+    apiKey: 'AIzaSyCg8SR0QF8FBafMM_y3wn11OkwlhrdmY6U',
+    appId: '1:161744756890:ios:7850d3e069b77c0ab23f23',
+    messagingSenderId: '161744756890',
+    projectId: 'smartgarage-a7ce3',
+    databaseURL: 'https://smartgarage-a7ce3-default-rtdb.firebaseio.com',
+    storageBucket: 'smartgarage-a7ce3.appspot.com',
     iosBundleId: 'com.example.untitled',
   );
+
 }
